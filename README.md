@@ -11,7 +11,7 @@ Simple node JS event emitter wrapping Ruby EventMachine Distributed Notification
 
 ###Usage
 ```javascript
-var nowplaying = require("./watch_now_playing.js");
+var nowplaying = require("../nowplaying-itunes");
 
 nowplaying.on("playing", function (data) {
 	console.log("PLAYING!", data);
