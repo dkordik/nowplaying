@@ -28,4 +28,5 @@ end
 
 EM.run {
   EM.watch_distributed_notification('com.apple.iTunes.playerInfo', Watcher)
+  EM.watch_distributed_notification('com.spotify.client.PlaybackStateChanged', Watcher)
 }

@@ -1,7 +1,7 @@
 nowplaying-itunes
 =================
 
-Simple node JS event emitter wrapping Ruby EventMachine Distributed Notification for com.apple.iTunes.playerInfo
+Simple node JS event emitter wrapping Ruby EventMachine Distributed Notification for com.apple.iTunes.playerInfo and com.spotify.client.PlaybackStateChanged
 
 ###Requires
 - Ruby, gems:
@@ -13,9 +13,35 @@ Simple node JS event emitter wrapping Ruby EventMachine Distributed Notification
 ```javascript
 var nowplaying = require("../nowplaying-itunes");
 
+nowplaying.on("paused", function (data) {
+
+	console.log("PAUS'D!", data);
+
+	//...
+});
+
 nowplaying.on("playing", function (data) {
+
 	console.log("PLAYING!", data);
-// data =
+
+// data, if Spotify:
+// { playerState: 'Playing',
+//   name: 'Planet Party',
+//   trackID: 'spotify:track:0X36qGG3g5yTLDIoIxWkLR',
+//   starred: true,
+//   discNumber: 1,
+//   hasArtwork: true,
+//   playCount: 0,
+//   location: '/Volumes/Music/Games/That We Play/3-Planet_Party.mp3',
+//   album: 'That We Can Play - EP',
+//   popularity: 1,
+//   duration: 168,
+//   artist: 'Games',
+//   albumArtist: 'Games',
+//   playbackPosition: 0,
+//   trackNumber: 3 }
+
+// data, if iTunes:
 // { discNumber: 1,
 //   trackCount: 11,
 //   trackNumber: 5,
@@ -42,10 +68,5 @@ nowplaying.on("playing", function (data) {
 //   albumRatingComputed: 0,
 //   album: 'Galactic Melt',
 //   albumRating: 80 }
-});
-
-nowplaying.on("paused", function (data) {
-	console.log("PAUS'D!", data);
-	//...
 });
 ```
