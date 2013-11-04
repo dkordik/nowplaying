@@ -1,0 +1,26 @@
+{
+  "name": "nowplaying",
+  "version": "1.0.0",
+  "description": "Simple node JS event emitter for iTunes/Spotify/Rdio playing/paused events. Wraps Ruby EventMachine Distributed Notification. Mac only.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dkordik/nowplaying-itunes.git"
+  },
+  "keywords": [
+    "itunes",
+    "spotify",
+    "rdio",
+    "nowplaying",
+    "playing",
+    "paused"
+  ],
+  "author": "Dan Kordik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dkordik/nowplaying/issues"
+  }
+}
