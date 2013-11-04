@@ -4,6 +4,7 @@ nowplaying
 Simple node JS event emitter for iTunes/Spotify/Rdio playing/paused events. Wraps Ruby EventMachine Distributed Notification
 
 ###Requires
+- Mac OS. Relies on Distributed Notifications and AppleScript (AppleScript for Rdio only)
 - Ruby, gems:
  - eventmachine-distributed-notification
  - json
