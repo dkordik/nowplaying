@@ -7,13 +7,16 @@ Simple node JS event emitter for iTunes/Spotify/Rdio playing/paused events. Wrap
 - Mac OS. Relies on Distributed Notifications and AppleScript (AppleScript for Rdio only)
 - Ruby, gems:
  - eventmachine-distributed-notification
- - active_support
+ - activesupport
  - json
 - Node
 
-###Try it out
+###Install
 
-Run `./example.js`
+```shell
+gem install eventmachine eventmachine-distributed-notification activesupport json
+npm install nowplaying
+```
 
 ###Usage
 ```javascript
