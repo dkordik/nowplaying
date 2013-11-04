@@ -11,6 +11,10 @@ Simple node JS event emitter for iTunes/Spotify/Rdio playing/paused events. Wrap
  - json
 - Node
 
+###Try it out
+
+Run `./example.js`
+
 ###Usage
 ```javascript
 var nowplaying = require("../nowplaying-itunes");
