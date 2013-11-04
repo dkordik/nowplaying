@@ -17,7 +17,7 @@ Run `./example.js`
 
 ###Usage
 ```javascript
-var nowplaying = require("../nowplaying-itunes");
+var nowplaying = require("nowplaying");
 
 nowplaying.on("playing", function (data) {
 	console.log("PLAYING!", data);

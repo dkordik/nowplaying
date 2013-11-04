@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dkordik/nowplaying-itunes.git"
+    "url": "git://github.com/dkordik/nowplaying.git"
   },
   "keywords": [
     "itunes",
