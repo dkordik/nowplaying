@@ -13,19 +13,18 @@ Simple node JS event emitter for iTunes/Spotify paused/playing events. Wraps Rub
 ```javascript
 var nowplaying = require("../nowplaying-itunes");
 
-nowplaying.on("paused", function (data) {
-
-	console.log("PAUS'D!", data);
-
-	//...
+nowplaying.on("playing", function (data) {
+	console.log("PLAYING!", data);
 });
 
-nowplaying.on("playing", function (data) {
-
-	console.log("PLAYING!", data);
+nowplaying.on("paused", function (data) {
+	console.log("PAUS'D!", data);
+});
 
 // data, if Spotify:
-// { playerState: 'Playing',
+
+// { source: 'Spotify',
+//   playerState: 'Playing',
 //   name: 'Planet Party',
 //   trackID: 'spotify:track:0X36qGG3g5yTLDIoIxWkLR',
 //   starred: true,
@@ -41,8 +40,22 @@ nowplaying.on("playing", function (data) {
 //   playbackPosition: 0,
 //   trackNumber: 3 }
 
+// data, if Rdio:
+
+// { source: 'Rdio',
+//   album: 'Confess',
+//   class: 'track',
+//   rdiourl: '/artist/Twin_Shadow/album/Confess/track/Golden_Light/',
+//   artist: 'Twin Shadow',
+//   key: 't17983895',
+//   duration: '277',
+//   name: 'Golden Light',
+//   playerState: 'playing' }
+
 // data, if iTunes:
-// { discNumber: 1,
+
+// { source: 'iTunes',
+//   discNumber: 1,
 //   trackCount: 11,
 //   trackNumber: 5,
 //   name: 'Flightwave',
@@ -68,5 +81,4 @@ nowplaying.on("playing", function (data) {
 //   albumRatingComputed: 0,
 //   album: 'Galactic Melt',
 //   albumRating: 80 }
-});
 ```
