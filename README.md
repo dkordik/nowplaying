@@ -1,7 +1,7 @@
 nowplaying
 =================
 
-Simple node JS event emitter for iTunes/Spotify paused/playing events. Wraps Ruby EventMachine Distributed Notification for com.apple.iTunes.playerInfo and com.spotify.client.PlaybackStateChanged
+Simple node JS event emitter for iTunes/Spotify/Rdio playing/paused events. Wraps Ruby EventMachine Distributed Notification
 
 ###Requires
 - Ruby, gems:
