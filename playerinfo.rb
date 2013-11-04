@@ -2,8 +2,10 @@
 
 require 'eventmachine-distributed-notification'
 require 'json'
+require 'active_support/core_ext/string/inflections'
 
 class Hash
+
   def to_utf8
     Hash[
       self.collect do |k, v|
@@ -17,20 +19,29 @@ class Hash
       end
     ]
   end
+
+  def to_camelkeyed_json
+    Hash[
+      self.collect { |k, v|
+        [ k.gsub('ID',' ID').gsub(' ','_').camelize(:lower), v ]
+      }
+    ].to_json
+  end
+
 end
 
 class ITunesWatcher < EM::DistributedNotificationWatch
   def notify(name, user_info)
-    user_info["Source"] = "iTunes"
-    puts user_info.to_utf8.to_json
+    user_info["source"] = "iTunes"
+    puts user_info.to_utf8.to_camelkeyed_json
     exit(0)
   end
 end
 
 class SpotifyWatcher < EM::DistributedNotificationWatch
   def notify(name, user_info)
-    user_info["Source"] = "Spotify"
-    puts user_info.to_utf8.to_json
+    user_info["source"] = "Spotify"
+    puts user_info.to_utf8.to_camelkeyed_json
     exit(0)
   end
 end
@@ -45,9 +56,9 @@ class RdioWatcher < EM::DistributedNotificationWatch
         user_info[key] = val
       end
     end
-    user_info["Player State"] = `osascript -e 'tell app "Rdio" to get player state'`.strip
-    user_info["Source"] = "Rdio"
-    puts user_info.to_utf8.to_json
+    user_info["playerState"] = `osascript -e 'tell app "Rdio" to get player state'`.strip
+    user_info["source"] = "Rdio"
+    puts user_info.to_utf8.to_camelkeyed_json
     exit(0)
   end
 end

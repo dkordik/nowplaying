@@ -7,6 +7,7 @@ Simple node JS event emitter for iTunes/Spotify/Rdio playing/paused events. Wrap
 - Mac OS. Relies on Distributed Notifications and AppleScript (AppleScript for Rdio only)
 - Ruby, gems:
  - eventmachine-distributed-notification
+ - active_support
  - json
 - Node
 
@@ -19,7 +20,7 @@ nowplaying.on("playing", function (data) {
 });
 
 nowplaying.on("paused", function (data) {
-	console.log("PAUS'D!", data);
+	console.log("PAUSED!", data);
 });
 
 // data, if Spotify:
@@ -27,7 +28,7 @@ nowplaying.on("paused", function (data) {
 // { source: 'Spotify',
 //   playerState: 'Playing',
 //   name: 'Planet Party',
-//   trackID: 'spotify:track:0X36qGG3g5yTLDIoIxWkLR',
+//   trackId: 'spotify:track:0X36qGG3g5yTLDIoIxWkLR',
 //   starred: true,
 //   discNumber: 1,
 //   hasArtwork: true,
@@ -46,7 +47,7 @@ nowplaying.on("paused", function (data) {
 // { source: 'Rdio',
 //   album: 'Confess',
 //   class: 'track',
-//   rdiourl: '/artist/Twin_Shadow/album/Confess/track/Golden_Light/',
+//   rdioUrl: '/artist/Twin_Shadow/album/Confess/track/Golden_Light/',
 //   artist: 'Twin Shadow',
 //   key: 't17983895',
 //   duration: '277',
@@ -61,7 +62,7 @@ nowplaying.on("paused", function (data) {
 //   trackNumber: 5,
 //   name: 'Flightwave',
 //   playerState: 'Playing',
-//   persistentID: 1628654696,
+//   persistentId: 1628654696,
 //   albumArtist: 'Com Truise',
 //   location: 'file://localhost/Volumes/Music/Com%20Truise/Galactic%20Melt/05%20Flightwave.mp3',
 //   composer: 'Com Truise',
@@ -70,11 +71,11 @@ nowplaying.on("paused", function (data) {
 //   skipCount: 0,
 //   year: 2011,
 //   discCount: 1,
-//   libraryPersistentID: 1522701079,
+//   libraryPersistentId: 1522701079,
 //   playCount: 3,
 //   artworkCount: 1,
 //   storeURL: 'itms://itunes.com/link?n=Flightwave&an=Com%20Truise&pn=Galactic%20Melt&cn=Com%20Truise',
-//   playlistPersistentID: -862874234,
+//   playlistPersistentId: -862874234,
 //   playDate: '2013-10-29 06:15:07 +0000',
 //   rating: 80,
 //   totalTime: 304587,

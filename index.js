@@ -21,13 +21,7 @@ NowPlaying.prototype.__proto__ = events.EventEmitter.prototype
 
 NowPlaying.prototype.getNowPlaying = function () {
 	ext_nowplaying.call(this, function (data) {
-		var jsFriendlyData = {};
-		for (key in data) {
-			var jsKey = key.split(" ").join("");
-			jsKey = jsKey.substring(0,1).toLowerCase() + jsKey.substring(1);
-			jsFriendlyData[jsKey] = data[key];
-		}
-		this.emit(data["Player State"].toLowerCase(), jsFriendlyData);
+		this.emit(data["playerState"].toLowerCase(), data);
 		this.getNowPlaying();
 	});
 }
