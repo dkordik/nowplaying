@@ -4,6 +4,8 @@ require 'eventmachine-distributed-notification'
 require 'json'
 require 'active_support/core_ext/string/inflections'
 
+Encoding.default_external = Encoding::UTF_8
+
 class Hash
 
   def to_utf8
