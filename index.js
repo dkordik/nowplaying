@@ -1,29 +1,27 @@
 #!/usr/bin/env node
 
 var util = require('util');
-var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
 var events = require('events');
 
-var ext_nowplaying = function (cb) {
-	var context = this;
-	exec(__dirname + "/playerinfo.rb", function (error, stdout, stderr) {
-		if (stdout) { cb.call(context, JSON.parse(stdout)); }
-		if (stderr) { console.log('stderr: ' + stderr); }
-		if (error !== null) { console.error('exec error: ' + error); }
-	});
-}
-
 var NowPlaying = function () {
-	this.getNowPlaying();
+	this.init();
 };
 
-NowPlaying.prototype.__proto__ = events.EventEmitter.prototype
+NowPlaying.prototype.init = function () {
+	var instance = this;
+	instance.playerinfo = spawn(__dirname + "/playerinfo.rb", []);
+	instance.playerinfo.stdout.on("data", function (data) {
+		var buff = new Buffer(data);
+		var obj = JSON.parse(buff.toString('utf8'));
 
-NowPlaying.prototype.getNowPlaying = function () {
-	ext_nowplaying.call(this, function (data) {
-		this.emit(data["playerState"].toLowerCase(), data);
-		this.getNowPlaying();
+		instance.emit(obj["playerState"].toLowerCase(), obj);
+	});
+	instance.playerinfo.stdout.on("end", function (data) {
+		instance.init();
 	});
 }
+
+NowPlaying.prototype.__proto__ = events.EventEmitter.prototype
 
 module.exports = new NowPlaying();
