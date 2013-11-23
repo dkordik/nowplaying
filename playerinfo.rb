@@ -35,14 +35,14 @@ end
 class ITunesWatcher < EM::DistributedNotificationWatch
   def notify(name, user_info)
     user_info["source"] = "iTunes"
-    puts user_info.to_utf8.to_camelkeyed_json
+    print user_info.to_utf8.to_camelkeyed_json
   end
 end
 
 class SpotifyWatcher < EM::DistributedNotificationWatch
   def notify(name, user_info)
     user_info["source"] = "Spotify"
-    puts user_info.to_utf8.to_camelkeyed_json
+    print user_info.to_utf8.to_camelkeyed_json
   end
 end
 
@@ -58,7 +58,7 @@ class RdioWatcher < EM::DistributedNotificationWatch
     end
     user_info["playerState"] = `osascript -e 'tell app "Rdio" to get player state'`.strip
     user_info["source"] = "Rdio"
-    puts user_info.to_utf8.to_camelkeyed_json
+    print user_info.to_utf8.to_camelkeyed_json
   end
 end
 

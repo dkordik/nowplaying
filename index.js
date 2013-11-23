@@ -13,7 +13,8 @@ NowPlaying.prototype.init = function () {
 	instance.playerinfo = spawn(__dirname + "/playerinfo.rb", []);
 	instance.playerinfo.stdout.on("data", function (data) {
 		var buff = new Buffer(data);
-		var obj = JSON.parse(buff.toString('utf8'));
+		var utf8string = buff.toString('utf8');
+		var obj = JSON.parse(utf8string);
 
 		instance.emit(obj["playerState"].toLowerCase(), obj);
 	});
