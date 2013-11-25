@@ -14,8 +14,8 @@ NowPlaying.prototype.init = function () {
 	instance.playerinfo.stdout.on("data", function (data) {
 		var buff = new Buffer(data);
 		var utf8string = buff.toString('utf8');
-		var states = utf8string.replace("}{", "}\0{") .split("\0");
-		states.forEach(function (state) {
+		var states = utf8string.replace(/}{/g, "}\0{").split("\0");
+		states.forEach(function (state, i) {
 			var obj = JSON.parse(state);
 			instance.emit(obj["playerState"].toLowerCase(), obj);
 		})
