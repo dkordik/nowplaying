@@ -46,26 +46,9 @@ class SpotifyWatcher < EM::DistributedNotificationWatch
   end
 end
 
-class RdioWatcher < EM::DistributedNotificationWatch
-  def notify(name, ignore)
-    user_info = Hash.new
-    rdio_track = `osascript -e 'tell app "Rdio" to get properties of current track'`.strip
-    rdio_track.split(", ").each do |prop|
-      key, val = prop.split(":")
-      if key != "artwork" #ignore full artwork image data
-        user_info[key] = val
-      end
-    end
-    user_info["playerState"] = `osascript -e 'tell app "Rdio" to get player state'`.strip
-    user_info["source"] = "Rdio"
-    print user_info.to_utf8.to_camelkeyed_json
-  end
-end
-
 $stdout.sync = true
 
 EM.run {
   EM.watch_distributed_notification('com.apple.iTunes.playerInfo', ITunesWatcher)
   EM.watch_distributed_notification('com.spotify.client.PlaybackStateChanged', SpotifyWatcher)
-  EM.watch_distributed_notification('com.rdio.desktop.playStateChanged', RdioWatcher)
 }

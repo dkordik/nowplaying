@@ -6,7 +6,6 @@ var events = require('events');
 
 var NowPlaying = function () {
 	this.init();
-	this.lastEventData = "";
 };
 
 NowPlaying.prototype.init = function () {
@@ -16,15 +15,9 @@ NowPlaying.prototype.init = function () {
 		var buff = new Buffer(data);
 		var utf8string = buff.toString('utf8');
 		var events = utf8string.replace(/}{/g, "}\0{").split("\0");
-
 		events.forEach(function (eventJSON, i) {
 			var eventData = JSON.parse(eventJSON);
-
-			//Dedupe, as Rdio emits duplicate playing or paused events in some cases
-			if (JSON.stringify(instance.lastEventData) != JSON.stringify(eventData)) {
-				instance.emit(eventData.playerState.toLowerCase(), eventData);
-				instance.lastEventData = eventData;
-			}
+			instance.emit(eventData.playerState.toLowerCase(), eventData);
 		})
 
 	});
