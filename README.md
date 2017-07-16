@@ -1,20 +1,18 @@
 nowplaying
 =================
 
-Simple node JS event emitter for iTunes/Spotify/Rdio playing/paused events. Wraps Ruby EventMachine Distributed Notification
+Simple node JS event emitter for iTunes/Spotify playing/paused events. Wraps Ruby EventMachine Distributed Notification
 
 ###Requires
-- Mac OS. Relies on Distributed Notifications and AppleScript (AppleScript for Rdio only)
-- Ruby, gems:
- - eventmachine-distributed-notification
- - activesupport
- - json
+- Mac OS. Relies on "Distributed Notification"
+- Ruby
 - Node
 
 ###Install
 
 ```shell
-gem install eventmachine eventmachine-distributed-notification activesupport json
+sudo gem install bundler
+bundle install
 npm install nowplaying
 ```
 
@@ -48,18 +46,6 @@ nowplaying.on("paused", function (data) {
 //   albumArtist: 'Games',
 //   playbackPosition: 0,
 //   trackNumber: 3 }
-
-// data, if Rdio:
-
-// { source: 'Rdio',
-//   album: 'Confess',
-//   class: 'track',
-//   rdioUrl: '/artist/Twin_Shadow/album/Confess/track/Golden_Light/',
-//   artist: 'Twin Shadow',
-//   key: 't17983895',
-//   duration: '277',
-//   name: 'Golden Light',
-//   playerState: 'playing' }
 
 // data, if iTunes:
 
