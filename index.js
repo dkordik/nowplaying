@@ -1,31 +1,26 @@
 #!/usr/bin/env node
 
-var util = require('util');
-var spawn = require('child_process').spawn;
-var events = require('events');
+const EventEmitter = require('events');
+const camelcaseKeys = require('camelcase-keys');
+const notificationListener = require('./notificationListener.js');
 
-var NowPlaying = function () {
-	this.init();
-};
+class NowPlaying extends EventEmitter {
+    constructor() {
+        super();
+        this.setupNotifications([
+            'com.apple.iTunes.playerInfo',
+            'com.spotify.client.PlaybackStateChanged'
+        ]);
+    }
 
-NowPlaying.prototype.init = function () {
-	var instance = this;
-	instance.playerinfo = spawn(__dirname + "/playerinfo.rb", []);
-	instance.playerinfo.stdout.on("data", function (data) {
-		var buff = new Buffer(data);
-		var utf8string = buff.toString('utf8');
-		var events = utf8string.replace(/}{/g, "}\0{").split("\0");
-		events.forEach(function (eventJSON, i) {
-			var eventData = JSON.parse(eventJSON);
-			instance.emit(eventData.playerState.toLowerCase(), eventData);
-		})
-
-	});
-	instance.playerinfo.stdout.on("end", function (data) {
-		instance.init();
-	});
+    setupNotifications(notificationNames) {
+        notificationListener(notificationNames, (state) => {
+            let camelCasedState = camelcaseKeys(state);
+            this.emit(camelCasedState.playerState.toLowerCase(), camelCasedState);
+        }, (err) => {
+            this.emit('error', err);
+        });
+    }
 }
-
-NowPlaying.prototype.__proto__ = events.EventEmitter.prototype
 
 module.exports = new NowPlaying();

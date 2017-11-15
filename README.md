@@ -3,20 +3,15 @@ nowplaying
 
 Simple Node.js event emitter for iTunes/Spotify playing/paused events.
 
-Wraps Ruby Gem [EventMachine-Distributed-Notification](https://github.com/youpy/eventmachine-distributed-notification)
+Uses [nodobjc](https://github.com/TooTallNate/NodObjC) to observe macOS Distributed Notifications
 
 ### Requires
 - macOS. Tested up to High Sierra
-- Ruby
 - Node.js
 
 ### Install
 
-*Note: Might need to re-run on major macOS upgrades*
 ```shell
-brew install ruby  #update to latest Ruby
-sudo gem install bundler
-bundle install
 npm install nowplaying
 ```
 
@@ -24,12 +19,20 @@ npm install nowplaying
 ```javascript
 var nowplaying = require("nowplaying");
 
-nowplaying.on("playing", function (data) {
-	console.log("PLAYING!", data);
+nowplaying.on("playing", (data) => {
+    console.log("PLAYING!", data);
 });
 
-nowplaying.on("paused", function (data) {
-	console.log("PAUSED!", data);
+nowplaying.on("paused", (data) => {
+    console.log("PAUSED!", data);
+});
+
+nowplaying.on("stopped", (data) => {
+    console.log("STOPPED!", data);
+});
+
+nowplaying.on("error", (data) => {
+    console.log("ERROR!", data);
 });
 
 // data, if Spotify:
