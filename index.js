@@ -4,6 +4,7 @@ const EventEmitter = require("events");
 const camelcaseKeys = require("camelcase-keys");
 const electron = require("electron");
 const proc = require("child_process");
+const path = require("path");
 
 const { SEPARATOR } = require("./tokens");
 
@@ -26,7 +27,7 @@ class NowPlaying extends EventEmitter {
 
     setupNotifications() {
         const child = proc.spawn(electron, [
-            "electronNotificationListener.js",
+            path.join(__dirname, "electronNotificationListener.js"),
             EVENT_NAMES.join(SEPARATOR),
         ]);
 
