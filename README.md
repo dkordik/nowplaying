@@ -1,13 +1,13 @@
-nowplaying
-=================
+# nowplaying
 
 Simple Node.js event emitter for iTunes/Spotify playing/paused events.
 
-Uses [nodobjc](https://github.com/TooTallNate/NodObjC) to observe macOS Distributed Notifications
+Uses Electron's subscribeNotifications to observe macOS Distributed Notifications
 
 ### Requires
-- macOS. Tested up to High Sierra
-- Node.js
+
+-   macOS. Tested up to Monteray
+-   Node.js
 
 ### Install
 
@@ -16,6 +16,7 @@ npm install nowplaying
 ```
 
 ### Usage
+
 ```javascript
 var nowplaying = require("nowplaying");
 

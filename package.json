@@ -1,29 +1,29 @@
 {
-  "name": "nowplaying",
-  "version": "2.0.0",
-  "description": "Simple Node.js event emitter for iTunes/Spotify playing/paused events on macOS",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/dkordik/nowplaying.git"
-  },
-  "keywords": [
-    "itunes",
-    "spotify",
-    "nowplaying",
-    "playing",
-    "paused"
-  ],
-  "author": "Dan Kordik",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/dkordik/nowplaying/issues"
-  },
-  "dependencies": {
-    "camelcase-keys": "^4.1.0",
-    "nodobjc": "^2.1.0"
-  }
+    "name": "nowplaying",
+    "version": "3.0.0",
+    "description": "Simple Node.js event emitter for iTunes/Spotify playing/paused events on macOS",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/dkordik/nowplaying.git"
+    },
+    "keywords": [
+        "itunes",
+        "spotify",
+        "nowplaying",
+        "playing",
+        "paused"
+    ],
+    "author": "Dan Kordik",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/dkordik/nowplaying/issues"
+    },
+    "dependencies": {
+        "camelcase-keys": "^4.1.0",
+        "electron": "^19.0.1"
+    }
 }
