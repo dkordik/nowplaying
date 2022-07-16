@@ -36,6 +36,11 @@ nowplaying.on("error", (data) => {
     console.log("ERROR!", data);
 });
 
+//iTunes-specific "Connecting" state while it's looking up tracks
+nowplaying.on("connecting", (data) => {
+    console.log("CONNECTING!", data);
+});
+
 // data, if Spotify:
 
 // { source: 'Spotify',
