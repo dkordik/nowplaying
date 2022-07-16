@@ -17,3 +17,7 @@ nowplaying.on("stopped", (data) => {
 nowplaying.on("error", (data) => {
     console.log("ERROR!", data);
 });
+
+nowplaying.on("connecting", (data) => {
+    console.log("CONNECTING!", data);
+});

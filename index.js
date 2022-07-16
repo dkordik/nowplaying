@@ -46,7 +46,15 @@ class NowPlaying extends EventEmitter {
 
             camelCasedUserInfo.eventName = eventName;
             camelCasedUserInfo.source = getAppFromEventName(eventName);
-            this.emit(playerState, camelCasedUserInfo);
+            if (
+                eventName === EVENT_NAME_FROM_APP.itunes &&
+                camelCasedUserInfo.storeUrl ===
+                    "itmss://itunes.com/link?n=Connecting%E2%80%A6"
+            ) {
+                this.emit("connecting", camelCasedUserInfo);
+            } else {
+                this.emit(playerState, camelCasedUserInfo);
+            }
         });
 
         child.stdout.on("error", (err) => {
