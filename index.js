@@ -8,10 +8,17 @@ const path = require("path");
 
 const { SEPARATOR } = require("./tokens");
 
-const EVENT_NAMES = [
-    "com.spotify.client.PlaybackStateChanged",
-    "com.apple.iTunes.playerInfo",
-];
+const EVENT_NAME_FROM_APP = {
+    spotify: "com.spotify.client.PlaybackStateChanged",
+    itunes: "com.apple.iTunes.playerInfo",
+};
+
+const EVENT_NAMES = [EVENT_NAME_FROM_APP.spotify, EVENT_NAME_FROM_APP.itunes];
+
+const getAppFromEventName = (eventName) =>
+    Object.keys(EVENT_NAME_FROM_APP).find(
+        (key) => EVENT_NAME_FROM_APP[key] === eventName
+    );
 
 const parseEvent = (rawEvent) => {
     const [eventName, serializedUserInfo] = rawEvent.split(SEPARATOR);
@@ -38,6 +45,7 @@ class NowPlaying extends EventEmitter {
             const playerState = camelCasedUserInfo.playerState.toLowerCase();
 
             camelCasedUserInfo.eventName = eventName;
+            camelCasedUserInfo.source = getAppFromEventName(eventName);
             this.emit(playerState, camelCasedUserInfo);
         });
 
