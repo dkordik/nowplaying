@@ -61,12 +61,10 @@ class NowPlaying extends EventEmitter {
             this.emit("error", err);
         });
 
-        process.on("exit", () => {
-            child.kill();
-        });
-
-        process.on("SIGINT", () => {
-            child.kill();
+        ["exit", "SIGINT", "SIGTERM"].forEach((eventName) => {
+            process.on(eventName, () => {
+                child.kill();
+            });
         });
     }
 }
