@@ -60,6 +60,14 @@ class NowPlaying extends EventEmitter {
         child.stdout.on("error", (err) => {
             this.emit("error", err);
         });
+
+        process.on("exit", () => {
+            child.kill();
+        });
+
+        process.on("SIGINT", () => {
+            child.kill();
+        });
     }
 }
 
