@@ -39,21 +39,26 @@ class NowPlaying extends EventEmitter {
         ]);
 
         child.stdout.on("data", (rawData) => {
-            const data = rawData.toString();
-            const { eventName, userInfo } = parseEvent(data);
-            const camelCasedUserInfo = camelcaseKeys(userInfo);
-            const playerState = camelCasedUserInfo.playerState.toLowerCase();
+            try {
+                const data = rawData.toString();
+                const { eventName, userInfo } = parseEvent(data);
+                const camelCasedUserInfo = camelcaseKeys(userInfo);
+                const playerState =
+                    camelCasedUserInfo.playerState.toLowerCase();
 
-            camelCasedUserInfo.eventName = eventName;
-            camelCasedUserInfo.source = getAppFromEventName(eventName);
-            if (
-                eventName === EVENT_NAME_FROM_APP.itunes &&
-                camelCasedUserInfo.storeUrl ===
-                    "itmss://itunes.com/link?n=Connecting%E2%80%A6"
-            ) {
-                this.emit("connecting", camelCasedUserInfo);
-            } else {
-                this.emit(playerState, camelCasedUserInfo);
+                camelCasedUserInfo.eventName = eventName;
+                camelCasedUserInfo.source = getAppFromEventName(eventName);
+                if (
+                    eventName === EVENT_NAME_FROM_APP.itunes &&
+                    camelCasedUserInfo.storeUrl ===
+                        "itmss://itunes.com/link?n=Connecting%E2%80%A6"
+                ) {
+                    this.emit("connecting", camelCasedUserInfo);
+                } else {
+                    this.emit(playerState, camelCasedUserInfo);
+                }
+            } catch (err) {
+                this.emit("error", err);
             }
         });
 
