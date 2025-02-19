@@ -20,10 +20,21 @@ const getAppFromEventName = (eventName) =>
         (key) => EVENT_NAME_FROM_APP[key] === eventName
     );
 
-const parseEvent = (rawEvent) => {
-    const [eventName, serializedUserInfo] = rawEvent.split(SEPARATOR);
-    const userInfo = JSON.parse(serializedUserInfo);
-    return { eventName, userInfo };
+const parseEventName = (rawEvent) => {
+    const [eventName] = rawEvent.split(SEPARATOR);
+    return eventName;
+};
+
+const parseUserInfo = (rawEvent) => {
+    const [, serializedUserInfo] = rawEvent.split(SEPARATOR);
+    let userInfo;
+    try {
+        userInfo = JSON.parse(serializedUserInfo);
+    } catch (e) {
+        console.error("Error reading info from Electron", e);
+        userInfo = null;
+    }
+    return userInfo;
 };
 
 class NowPlaying extends EventEmitter {
@@ -41,7 +52,15 @@ class NowPlaying extends EventEmitter {
         child.stdout.on("data", (rawData) => {
             try {
                 const data = rawData.toString();
-                const { eventName, userInfo } = parseEvent(data);
+                const eventName = parseEventName(data);
+                const userInfo = parseUserInfo(data);
+                if (userInfo === null) {
+                    this.emit(
+                        "error",
+                        new Error("Failed to pass info from Electron: " + data)
+                    );
+                    return;
+                }
                 const camelCasedUserInfo = camelcaseKeys(userInfo);
                 const playerState =
                     camelCasedUserInfo.playerState.toLowerCase();
